@@ -4,7 +4,6 @@ import App from './App';
 import './index.css';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import { PokemonsList } from './components/PokemonList';
 
 const rootElement = document.getElementById('root');
 console.log(store)
@@ -12,7 +11,7 @@ if (rootElement) {
   createRoot(rootElement).render(
     <React.StrictMode>
       <Provider store={store}>
-        <PokemonsList />
+        <App />
       </Provider>
     </React.StrictMode>
   );
