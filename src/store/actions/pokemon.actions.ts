@@ -11,10 +11,19 @@ export const getPokemons = () => {
         payload: true,
       });
 
-      const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon');
+      const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=151');
+      console.log('data full', data)
+
+      const pokemonPromises = data.results.map(async (pokemon: any) => {
+        const { data: pokemonData } = await axios.get(pokemon.url);
+        return pokemonData;
+      });
+
+      const pokemonData = await Promise.all(pokemonPromises);
+
       dispatch({
         type: types.FETCH_POKEMONS_SUCCESS,
-        payload: data.results,
+        payload: pokemonData,
       });
     } catch (error: any) {
       dispatch({
